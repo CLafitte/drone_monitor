@@ -55,9 +55,6 @@ You must have:
 Run:
 python3 drone_monitor.py
 
-yaml
-Copy code
-
 Optional:
 - Replace `drone_1bit.onnx` with your trained model
 - Adjust DSP and CNN thresholds in `drone_monitor.py`
