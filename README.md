@@ -8,8 +8,7 @@ explainable, field-deployable quadcopter detector that improves over time with n
 ---
 
 ## System Architecture
-
-### Stage One**DSP Early-Warning Stage (fast, low-power)**
+### Stage One: DSP Early-Warning Stage (fast, low-power)
 - Captures 1–2 second audio windows from a USB microphone  
 - Computes lightweight acoustic features:
   - harmonic spacing consistency  
@@ -17,17 +16,19 @@ explainable, field-deployable quadcopter detector that improves over time with n
   - AM-depth via analytic envelope  
   - broadband energy  
 - Produces an **early suspicion score** from 0–1  
-- If suspicion is low → **skip CNN** (saves compute)
+  - If suspicion is low → **skip CNN** (saves compute)
 
-### Stage Two**1-Bit CNN Classifier (precise, trainable)**
+### Stage Two: 1-Bit CNN Classifier (precise, trainable)
 - Operates only when DSP suspicion crosses a threshold  
 - Uses 1-bit quantized convolutions for extremely efficient inference  
-- Input: log-mel (or STFT-based) spectrogram  
-- Output: **cnn_prob** = probability of “drone-like sound”
+  - Input: log-mel (or STFT-based) spectrogram  
+  - Output: **cnn_prob** = probability of “drone-like sound”
 
-### 3. Stage Three **Warning Logic**
+### Stage Three: Warning Logic
+```bash
 mic → DSP → (low?) → no alert
-(high?) → CNN → final drone_result
+            (high?) → CNN → final drone_result
+```
 
 The system logs DSP metrics, CNN probabilities, and final decisions. Model accuracy will improve through 
 ongoing dataset collection and training.
